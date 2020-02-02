@@ -56,13 +56,14 @@ function getGraph(filename) {
 // 生成浏览器可执行的代码并写入bundle.js中
 function createBundle(graph) {
   let modules = ''
+  // 生成modules字符串
   graph.forEach((module) => {
     modules += `${module.id}:[
       ${module.code},
       ${JSON.stringify(module.mapping)}
     ],`
   })
-
+  // 生成立即执行函数，并且将moudules作为参数传递进去
   let result = `(function f(modules) {
     function exec(id) {
       let [fn, mapping] = modules[id]
